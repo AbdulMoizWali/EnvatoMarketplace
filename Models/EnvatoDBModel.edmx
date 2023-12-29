@@ -97,7 +97,7 @@
           <Property Name="accountStatus" Type="varchar" MaxLength="20" />
           <Property Name="shippingAddress" Type="nvarchar(max)" />
           <Property Name="phone" Type="varchar" MaxLength="25" />
-          <Property Name="roleid" Type="int" Nullable="false" />
+          <Property Name="rid" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Cart_payid">
           <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
@@ -215,7 +215,7 @@
               <PropertyRef Name="rid" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="roleid" />
+              <PropertyRef Name="rid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -274,6 +274,57 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EnvatoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EnvatoDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carts" EntityType="EnvatoDBModel.Cart" />
+          <EntitySet Name="CartItems" EntityType="EnvatoDBModel.CartItem" />
+          <EntitySet Name="Categories" EntityType="EnvatoDBModel.Category" />
+          <EntitySet Name="Logs" EntityType="EnvatoDBModel.Log" />
+          <EntitySet Name="Payments" EntityType="EnvatoDBModel.Payment" />
+          <EntitySet Name="Products" EntityType="EnvatoDBModel.Product" />
+          <EntitySet Name="Reviews" EntityType="EnvatoDBModel.Review" />
+          <EntitySet Name="Roles" EntityType="EnvatoDBModel.Role" />
+          <EntitySet Name="Users" EntityType="EnvatoDBModel.User" />
+          <AssociationSet Name="FK_Cart_payid" Association="EnvatoDBModel.FK_Cart_payid">
+            <End Role="Payment" EntitySet="Payments" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_uid" Association="EnvatoDBModel.FK_Cart_uid">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartItem_cid" Association="EnvatoDBModel.FK_CartItem_cid">
+            <End Role="Cart" EntitySet="Carts" />
+            <End Role="CartItem" EntitySet="CartItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CartItem_pid" Association="EnvatoDBModel.FK_CartItem_pid">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="CartItem" EntitySet="CartItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_pcatid" Association="EnvatoDBModel.FK_Category_pcatid">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_catid" Association="EnvatoDBModel.FK_Product_catid">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_uid" Association="EnvatoDBModel.FK_Logs_uid">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Log" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_uid" Association="EnvatoDBModel.FK_Product_uid">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_pid" Association="EnvatoDBModel.FK_Review_pid">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_roleid" Association="EnvatoDBModel.FK_User_roleid">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="cid" />
@@ -285,9 +336,9 @@
           <Property Name="totalAmount" Type="Int32" />
           <Property Name="payid" Type="Int32" />
           <Property Name="cartStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Payment" Relationship="Self.FK_Cart_payid" FromRole="Cart" ToRole="Payment" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Cart_uid" FromRole="Cart" ToRole="User" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK_CartItem_cid" FromRole="Cart" ToRole="CartItem" />
+          <NavigationProperty Name="Payment" Relationship="EnvatoDBModel.FK_Cart_payid" FromRole="Cart" ToRole="Payment" />
+          <NavigationProperty Name="User" Relationship="EnvatoDBModel.FK_Cart_uid" FromRole="Cart" ToRole="User" />
+          <NavigationProperty Name="CartItems" Relationship="EnvatoDBModel.FK_CartItem_cid" FromRole="Cart" ToRole="CartItem" />
         </EntityType>
         <EntityType Name="CartItem">
           <Key>
@@ -296,23 +347,23 @@
           </Key>
           <Property Name="cid" Type="Int32" Nullable="false" />
           <Property Name="pid" Type="Int32" Nullable="false" />
-          <Property Name="pName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pShortDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="pAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="pName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="pShortDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="pBuyQty" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cart" Relationship="Self.FK_CartItem_cid" FromRole="CartItem" ToRole="Cart" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_CartItem_pid" FromRole="CartItem" ToRole="Product" />
+          <NavigationProperty Name="Cart" Relationship="EnvatoDBModel.FK_CartItem_cid" FromRole="CartItem" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="EnvatoDBModel.FK_CartItem_pid" FromRole="CartItem" ToRole="Product" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="catid" />
           </Key>
           <Property Name="catid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="catName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="catName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="pcatid" Type="Int32" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_Category_pcatid" FromRole="Category" ToRole="Category1" />
-          <NavigationProperty Name="FK_Category" Relationship="Self.FK_Category_pcatid" FromRole="Category1" ToRole="Category" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_catid" FromRole="Category" ToRole="Product" />
+          <NavigationProperty Name="Category1" Relationship="EnvatoDBModel.FK_Category_pcatid" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="EnvatoDBModel.FK_Category_pcatid" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Products" Relationship="EnvatoDBModel.FK_Product_catid" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
@@ -321,15 +372,15 @@
           <Property Name="lid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="timestamp" Type="DateTime" Precision="3" />
           <Property Name="uid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Logs_uid" FromRole="Logs" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="EnvatoDBModel.FK_Logs_uid" FromRole="Log" ToRole="User" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
             <PropertyRef Name="payid" />
           </Key>
           <Property Name="payid" Type="Int32" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_payid" FromRole="Payment" ToRole="Cart" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Carts" Relationship="EnvatoDBModel.FK_Cart_payid" FromRole="Payment" ToRole="Cart" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -337,18 +388,18 @@
           </Key>
           <Property Name="pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="uid" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="productPic" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="shortDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="longDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="productPic" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shortDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="longDesc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Double" />
-          <Property Name="amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="availableQty" Type="Int32" Nullable="false" />
           <Property Name="catid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CartItems" Relationship="Self.FK_CartItem_pid" FromRole="Product" ToRole="CartItem" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Product_catid" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Product_uid" FromRole="Product" ToRole="User" />
-          <NavigationProperty Name="Reviews" Relationship="Self.FK_Review_pid" FromRole="Product" ToRole="Review" />
+          <NavigationProperty Name="CartItems" Relationship="EnvatoDBModel.FK_CartItem_pid" FromRole="Product" ToRole="CartItem" />
+          <NavigationProperty Name="Category" Relationship="EnvatoDBModel.FK_Product_catid" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="User" Relationship="EnvatoDBModel.FK_Product_uid" FromRole="Product" ToRole="User" />
+          <NavigationProperty Name="Reviews" Relationship="EnvatoDBModel.FK_Review_pid" FromRole="Product" ToRole="Review" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -356,41 +407,41 @@
           </Key>
           <Property Name="rwid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="pid" Type="Int32" Nullable="false" />
-          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Review_pid" FromRole="Review" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="EnvatoDBModel.FK_Review_pid" FromRole="Review" ToRole="Product" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="rid" />
           </Key>
           <Property Name="rid" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_User_roleid" FromRole="Role" ToRole="User" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="EnvatoDBModel.FK_User_roleid" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="uid" />
           </Key>
           <Property Name="uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="profilePic" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="profilePic" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="doj" Type="DateTime" Precision="3" />
           <Property Name="dob" Type="DateTime" Precision="0" />
           <Property Name="accountStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="shippingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="roleid" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_uid" FromRole="User" ToRole="Cart" />
-          <NavigationProperty Name="Logs" Relationship="Self.FK_Logs_uid" FromRole="User" ToRole="Logs" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Product_uid" FromRole="User" ToRole="Product" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_roleid" FromRole="User" ToRole="Role" />
+          <Property Name="rid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Carts" Relationship="EnvatoDBModel.FK_Cart_uid" FromRole="User" ToRole="Cart" />
+          <NavigationProperty Name="Logs" Relationship="EnvatoDBModel.FK_Logs_uid" FromRole="User" ToRole="Log" />
+          <NavigationProperty Name="Products" Relationship="EnvatoDBModel.FK_Product_uid" FromRole="User" ToRole="Product" />
+          <NavigationProperty Name="Role" Relationship="EnvatoDBModel.FK_User_roleid" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK_Cart_payid">
-          <End Role="Payment" Type="Self.Payment" Multiplicity="0..1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <End Type="EnvatoDBModel.Payment" Role="Payment" Multiplicity="0..1" />
+          <End Type="EnvatoDBModel.Cart" Role="Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Payment">
               <PropertyRef Name="payid" />
@@ -401,8 +452,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Cart_uid">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <End Type="EnvatoDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="EnvatoDBModel.Cart" Role="Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="uid" />
@@ -413,8 +464,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CartItem_cid">
-          <End Role="Cart" Type="Self.Cart" Multiplicity="1" />
-          <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
+          <End Type="EnvatoDBModel.Cart" Role="Cart" Multiplicity="1" />
+          <End Type="EnvatoDBModel.CartItem" Role="CartItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cart">
               <PropertyRef Name="cid" />
@@ -425,8 +476,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CartItem_pid">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="CartItem" Type="Self.CartItem" Multiplicity="*" />
+          <End Type="EnvatoDBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="EnvatoDBModel.CartItem" Role="CartItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="pid" />
@@ -437,8 +488,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Category_pcatid">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <End Type="EnvatoDBModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="EnvatoDBModel.Category" Role="Category1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="catid" />
@@ -449,8 +500,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_catid">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Type="EnvatoDBModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="EnvatoDBModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="catid" />
@@ -461,20 +512,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Logs_uid">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Logs" Type="Self.Log" Multiplicity="*" />
+          <End Type="EnvatoDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="EnvatoDBModel.Log" Role="Log" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="uid" />
             </Principal>
-            <Dependent Role="Logs">
+            <Dependent Role="Log">
               <PropertyRef Name="uid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_uid">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Type="EnvatoDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="EnvatoDBModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="uid" />
@@ -485,8 +536,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Review_pid">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <End Type="EnvatoDBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="EnvatoDBModel.Review" Role="Review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="pid" />
@@ -497,68 +548,17 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_roleid">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="EnvatoDBModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="EnvatoDBModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="rid" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="roleid" />
+              <PropertyRef Name="rid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EnvatoDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Carts" EntityType="Self.Cart" />
-          <EntitySet Name="CartItems" EntityType="Self.CartItem" />
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Logs" EntityType="Self.Log" />
-          <EntitySet Name="Payments" EntityType="Self.Payment" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="Reviews" EntityType="Self.Review" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Cart_payid" Association="Self.FK_Cart_payid">
-            <End Role="Payment" EntitySet="Payments" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cart_uid" Association="Self.FK_Cart_uid">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CartItem_cid" Association="Self.FK_CartItem_cid">
-            <End Role="Cart" EntitySet="Carts" />
-            <End Role="CartItem" EntitySet="CartItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CartItem_pid" Association="Self.FK_CartItem_pid">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="CartItem" EntitySet="CartItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Category_pcatid" Association="Self.FK_Category_pcatid">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Category1" EntitySet="Categories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_catid" Association="Self.FK_Product_catid">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Logs_uid" Association="Self.FK_Logs_uid">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Logs" EntitySet="Logs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_uid" Association="Self.FK_Product_uid">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Review_pid" Association="Self.FK_Review_pid">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Review" EntitySet="Reviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_roleid" Association="Self.FK_User_roleid">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -568,102 +568,102 @@
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="EnvatoDBModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
-                <ScalarProperty Name="cid" ColumnName="cid" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="closedAt" ColumnName="closedAt" />
-                <ScalarProperty Name="uid" ColumnName="uid" />
-                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
-                <ScalarProperty Name="payid" ColumnName="payid" />
                 <ScalarProperty Name="cartStatus" ColumnName="cartStatus" />
+                <ScalarProperty Name="payid" ColumnName="payid" />
+                <ScalarProperty Name="totalAmount" ColumnName="totalAmount" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="closedAt" ColumnName="closedAt" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CartItems">
             <EntityTypeMapping TypeName="EnvatoDBModel.CartItem">
               <MappingFragment StoreEntitySet="CartItem">
-                <ScalarProperty Name="cid" ColumnName="cid" />
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="pName" ColumnName="pName" />
-                <ScalarProperty Name="pShortDesc" ColumnName="pShortDesc" />
-                <ScalarProperty Name="pAmount" ColumnName="pAmount" />
                 <ScalarProperty Name="pBuyQty" ColumnName="pBuyQty" />
+                <ScalarProperty Name="pAmount" ColumnName="pAmount" />
+                <ScalarProperty Name="pShortDesc" ColumnName="pShortDesc" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="EnvatoDBModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="catid" ColumnName="catid" />
-                <ScalarProperty Name="catName" ColumnName="catName" />
                 <ScalarProperty Name="pcatid" ColumnName="pcatid" />
+                <ScalarProperty Name="catName" ColumnName="catName" />
+                <ScalarProperty Name="catid" ColumnName="catid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Logs">
             <EntityTypeMapping TypeName="EnvatoDBModel.Log">
               <MappingFragment StoreEntitySet="Logs">
-                <ScalarProperty Name="lid" ColumnName="lid" />
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
                 <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="lid" ColumnName="lid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Payments">
             <EntityTypeMapping TypeName="EnvatoDBModel.Payment">
               <MappingFragment StoreEntitySet="Payment">
-                <ScalarProperty Name="payid" ColumnName="payid" />
                 <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="payid" ColumnName="payid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="EnvatoDBModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="uid" ColumnName="uid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="productPic" ColumnName="productPic" />
-                <ScalarProperty Name="shortDesc" ColumnName="shortDesc" />
-                <ScalarProperty Name="longDesc" ColumnName="longDesc" />
-                <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="availableQty" ColumnName="availableQty" />
                 <ScalarProperty Name="catid" ColumnName="catid" />
+                <ScalarProperty Name="availableQty" ColumnName="availableQty" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="longDesc" ColumnName="longDesc" />
+                <ScalarProperty Name="shortDesc" ColumnName="shortDesc" />
+                <ScalarProperty Name="productPic" ColumnName="productPic" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="EnvatoDBModel.Review">
               <MappingFragment StoreEntitySet="Review">
-                <ScalarProperty Name="rwid" ColumnName="rwid" />
-                <ScalarProperty Name="pid" ColumnName="pid" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="pid" ColumnName="pid" />
+                <ScalarProperty Name="rwid" ColumnName="rwid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="EnvatoDBModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="rid" ColumnName="rid" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="EnvatoDBModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="uid" ColumnName="uid" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="profilePic" ColumnName="profilePic" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="doj" ColumnName="doj" />
-                <ScalarProperty Name="dob" ColumnName="dob" />
-                <ScalarProperty Name="accountStatus" ColumnName="accountStatus" />
-                <ScalarProperty Name="shippingAddress" ColumnName="shippingAddress" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="shippingAddress" ColumnName="shippingAddress" />
+                <ScalarProperty Name="accountStatus" ColumnName="accountStatus" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="doj" ColumnName="doj" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="profilePic" ColumnName="profilePic" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
