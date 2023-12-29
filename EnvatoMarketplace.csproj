@@ -100,6 +100,12 @@
     <Content Include="Models\EnvatoDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EnvatoDBModel.Context.cs</LastGenOutput>
+      <DependentUpon>EnvatoDBModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\EnvatoDBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EnvatoDBModel.edmx</DependentUpon>
+      <LastGenOutput>EnvatoDBModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -108,15 +114,47 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CartItem.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EnvatoDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EnvatoDBModel.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EnvatoDBModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EnvatoDBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EnvatoDBModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Log.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Review.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>EnvatoDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -126,9 +164,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EnvatoDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\EnvatoDBModel.edmx.diagram">
+    <Content Include="Models\EnvatoDBModel.edmx.diagram">
       <DependentUpon>EnvatoDBModel.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
