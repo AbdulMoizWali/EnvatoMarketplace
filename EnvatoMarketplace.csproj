@@ -107,6 +107,9 @@
       <DependentUpon>EnvatoDBModel.edmx</DependentUpon>
       <LastGenOutput>EnvatoDBModel.cs</LastGenOutput>
     </Content>
+    <Content Include="uploads\productImages\galaxys21.jpeg" />
+    <Content Include="uploads\productImages\iphone13.jpeg" />
+    <Content Include="uploads\userImages\user.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
