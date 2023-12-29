@@ -361,8 +361,8 @@
           <Property Name="catid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="catName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="pcatid" Type="Int32" />
-          <NavigationProperty Name="Category1" Relationship="EnvatoDBModel.FK_Category_pcatid" FromRole="Category" ToRole="Category1" />
-          <NavigationProperty Name="Category2" Relationship="EnvatoDBModel.FK_Category_pcatid" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Categories" Relationship="EnvatoDBModel.FK_Category_pcatid" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="ParentCategory" Relationship="EnvatoDBModel.FK_Category_pcatid" FromRole="Category1" ToRole="Category" />
           <NavigationProperty Name="Products" Relationship="EnvatoDBModel.FK_Product_catid" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="Log">
