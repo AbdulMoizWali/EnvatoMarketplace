@@ -199,6 +199,8 @@
     <Content Include="Views\Home\CreateCategory.cshtml" />
     <Content Include="Views\Auth\_Login_Layout.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Auth\Signup.cshtml" />
+    <Content Include="Views\Auth\_Signup_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
