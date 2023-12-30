@@ -21,6 +21,7 @@ namespace EnvatoMarketplace.Controllers
 
             if (log != null)
             {
+
                 string role = log.Role.name;
 
                 if (!string.IsNullOrEmpty(role))
@@ -45,5 +46,13 @@ namespace EnvatoMarketplace.Controllers
            
             return View();
         }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Login");
+        }
+
     }
     }
