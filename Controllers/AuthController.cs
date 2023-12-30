@@ -86,8 +86,19 @@ namespace EnvatoMarketplace.Controllers
         }
 
         [HttpPost]
-        public ActionResult Signup(User user, string UserRole)
+        public ActionResult Signup(User user, string UserRole, string ConfirmPassword, string AcceptLicense)
         {
+            if(user.password != ConfirmPassword)
+            {
+                ModelState.AddModelError("", "Passwords doesn't match");
+                return View(user);
+            }
+
+            if(AcceptLicense != "Checked")
+            {
+                ModelState.AddModelError("", "To Sign up accept the privacy policy");
+                return View(user);
+            }
 
 
             user.rid = (int)getUserRole(UserRole);
@@ -113,7 +124,7 @@ namespace EnvatoMarketplace.Controllers
 
                 catch (System.Data.Entity.Infrastructure.DbUpdateException dbUpdateException)
                 {
-                    ModelState.AddModelError("", "Username name already taken unable to signup ");
+                    ModelState.AddModelError("", "Username name already taken unable to create account ");
                 }
                 catch (Exception ex)
                 {
