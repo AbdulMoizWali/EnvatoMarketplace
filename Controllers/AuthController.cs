@@ -138,6 +138,12 @@ namespace EnvatoMarketplace.Controllers
             return View(user);
         }
 
-        
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            Session.RemoveAll();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
