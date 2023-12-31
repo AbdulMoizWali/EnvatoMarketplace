@@ -29,7 +29,7 @@ namespace EnvatoMarketplace.Models
         public string longDesc { get; set; }
         public Nullable<double> rating { get; set; }
         public decimal amount { get; set; }
-        public int availableQty { get; set; }
+        public Nullable<int> availableQty { get; set; }
         public int catid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

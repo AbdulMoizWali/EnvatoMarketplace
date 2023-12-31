@@ -64,7 +64,7 @@
           <Property Name="longDesc" Type="nvarchar(max)" Nullable="false" />
           <Property Name="rating" Type="float" />
           <Property Name="amount" Type="money" Nullable="false" />
-          <Property Name="availableQty" Type="int" Nullable="false" />
+          <Property Name="availableQty" Type="int" />
           <Property Name="catid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Review">
@@ -75,6 +75,7 @@
           <Property Name="pid" Type="int" Nullable="false" />
           <Property Name="comment" Type="nvarchar(max)" Nullable="false" />
           <Property Name="rating" Type="int" Nullable="false" />
+          <Property Name="uid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -207,6 +208,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Review_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_roleid">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -263,6 +276,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Review_pid" Association="Self.FK_Review_pid">
             <End Role="Product" EntitySet="Product" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_User" Association="Self.FK_Review_User">
+            <End Role="User" EntitySet="User" />
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
           <AssociationSet Name="FK_User_roleid" Association="Self.FK_User_roleid">
@@ -323,6 +340,10 @@
           <AssociationSet Name="FK_User_roleid" Association="EnvatoDBModel.FK_User_roleid">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_User" Association="EnvatoDBModel.FK_Review_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cart">
@@ -394,7 +415,7 @@
           <Property Name="longDesc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Double" />
           <Property Name="amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="availableQty" Type="Int32" Nullable="false" />
+          <Property Name="availableQty" Type="Int32" />
           <Property Name="catid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CartItems" Relationship="EnvatoDBModel.FK_CartItem_pid" FromRole="Product" ToRole="CartItem" />
           <NavigationProperty Name="Category" Relationship="EnvatoDBModel.FK_Product_catid" FromRole="Product" ToRole="Category" />
@@ -410,6 +431,8 @@
           <Property Name="comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="rating" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="EnvatoDBModel.FK_Review_pid" FromRole="Review" ToRole="Product" />
+          <Property Name="uid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="EnvatoDBModel.FK_Review_User" FromRole="Review" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -438,6 +461,7 @@
           <NavigationProperty Name="Logs" Relationship="EnvatoDBModel.FK_Logs_uid" FromRole="User" ToRole="Log" />
           <NavigationProperty Name="Products" Relationship="EnvatoDBModel.FK_Product_uid" FromRole="User" ToRole="Product" />
           <NavigationProperty Name="Role" Relationship="EnvatoDBModel.FK_User_roleid" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Reviews" Relationship="EnvatoDBModel.FK_Review_User" FromRole="User" ToRole="Review" />
         </EntityType>
         <Association Name="FK_Cart_payid">
           <End Type="EnvatoDBModel.Payment" Role="Payment" Multiplicity="0..1" />
@@ -559,6 +583,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Review_User">
+          <End Type="EnvatoDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="EnvatoDBModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -635,6 +671,7 @@
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="EnvatoDBModel.Review">
               <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="uid" ColumnName="uid" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
                 <ScalarProperty Name="comment" ColumnName="comment" />
                 <ScalarProperty Name="pid" ColumnName="pid" />
