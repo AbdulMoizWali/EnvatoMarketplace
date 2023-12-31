@@ -11,7 +11,8 @@ namespace EnvatoMarketplace.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,9 +24,13 @@ namespace EnvatoMarketplace.Models
         }
     
         public int uid { get; set; }
+
+        [Required]
         public string name { get; set; }
         public string profilePic { get; set; }
+        [Required]
         public string username { get; set; }
+        [Required]
         public string password { get; set; }
         public Nullable<System.DateTime> doj { get; set; }
         public Nullable<System.DateTime> dob { get; set; }

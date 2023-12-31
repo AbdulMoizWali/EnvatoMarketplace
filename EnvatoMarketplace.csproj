@@ -97,21 +97,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Landing\assets\android-chrome-192x192.png" />
-    <Content Include="Content\Landing\assets\android-chrome-512x512.png" />
-    <Content Include="Content\Landing\assets\apple-touch-icon.png" />
-    <Content Include="Content\Landing\assets\favicon-16x16.png" />
-    <Content Include="Content\Landing\assets\favicon-32x32.png" />
-    <Content Include="Content\Landing\assets\favicon.ico" />
-    <Content Include="Content\Landing\assets\input.css" />
-    <Content Include="Content\Landing\assets\mstile-150x150.png" />
-    <Content Include="Content\Landing\assets\output.css" />
-    <Content Include="Content\Landing\assets\tailwind.config.js" />
-    <Content Include="Content\Landing\images\feature-1.png" />
-    <Content Include="Content\Landing\images\feature-2.png" />
-    <Content Include="Content\Landing\images\hero.png" />
-    <Content Include="Content\Landing\images\logo.svg" />
-    <Content Include="Content\Landing\images\user.jpg" />
     <Content Include="Content\Login\assets\css\tailwind.css" />
     <Content Include="Content\Login\assets\css\tailwind.output.css" />
     <Content Include="Content\Login\assets\img\create-account-office-dark.jpeg" />
@@ -147,8 +132,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,17 +190,17 @@
     <Content Include="Models\EnvatoDBModel.edmx.diagram">
       <DependentUpon>EnvatoDBModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\Landing\assets\package-lock.json" />
-    <Content Include="Content\Landing\assets\package.json" />
-    <Content Include="Content\Landing\assets\site.webmanifest" />
-    <Content Include="Content\Landing\assets\LICENSE" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\CreateUser.cshtml" />
+    <Content Include="Views\Home\Categories.cshtml" />
+    <Content Include="Views\Home\CreateCategory.cshtml" />
     <Content Include="Views\Auth\_Login_Layout.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\_Landing_Layout.cshtml" />
+    <Content Include="Views\Auth\Signup.cshtml" />
+    <Content Include="Views\Auth\_Signup_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

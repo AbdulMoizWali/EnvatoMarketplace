@@ -28,10 +28,10 @@ BEGIN TRY
 	  [accountStatus] varchar(20) default 'TRUE',
 	  [shippingAddress] nvarchar(MAX),
 	  [phone] varchar(25),
-	  [roleid] int not null,
+	  [rid] int not null,
 	  PRIMARY KEY ([uid]),
-	  CONSTRAINT [FK_User.roleid]
-		FOREIGN KEY ([roleid])
+	  CONSTRAINT [FK_User.rid]
+		FOREIGN KEY ([rid])
 		  REFERENCES [Role]([rid])
 	);
 
