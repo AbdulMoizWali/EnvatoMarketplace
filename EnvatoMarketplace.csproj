@@ -220,7 +220,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,6 +270,7 @@
       <DependentUpon>EnvatoDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\MarketplaceVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -284,14 +288,15 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\CreateUser.cshtml" />
-    <Content Include="Views\Home\Categories.cshtml" />
-    <Content Include="Views\Home\CreateCategory.cshtml" />
-    <Content Include="Views\Auth\_Login_Layout.cshtml" />
-    <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Auth\Signup.cshtml" />
     <Content Include="Views\Auth\_Signup_Layout.cshtml" />
+    <Content Include="Views\Auth\_Login_Layout.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_Landing_Layout.cshtml" />
+    <Content Include="Views\Home\Marketplace.cshtml" />
+    <Content Include="Views\Default\NotFound.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\_Admin_Layout.cshtml" />
     <None Include="Web.Debug.config">
@@ -303,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -24,6 +24,7 @@
         <AssociationConnector Association="EnvatoDBModel.FK_Product_uid" />
         <AssociationConnector Association="EnvatoDBModel.FK_Review_pid" />
         <AssociationConnector Association="EnvatoDBModel.FK_User_roleid" />
+        <AssociationConnector Association="EnvatoDBModel.FK_Review_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

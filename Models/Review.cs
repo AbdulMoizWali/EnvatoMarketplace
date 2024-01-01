@@ -18,7 +18,9 @@ namespace EnvatoMarketplace.Models
         public int pid { get; set; }
         public string comment { get; set; }
         public int rating { get; set; }
+        public int uid { get; set; }
     
         public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

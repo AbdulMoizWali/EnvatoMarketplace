@@ -43,31 +43,27 @@ namespace EnvatoMarketplace.Controllers
                 {
                     if (role == "Customer")
                     {
+                        Session["uid"] = log.uid;
                         Session["username"] = username;
                         return RedirectToAction("Index", "Home");
                     }
                     else if (role == "Vendor")
                     {
+                        Session["uid"] = log.uid;
                         Session["username"] = username;
                         return RedirectToAction("CreateUser", "Home");
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Admin");
+                        Session["uid"] = log.uid;
+                        Session["username"] = username;
+                        return RedirectToAction("CreateCategory", "Home");
                     }
                 }
             }
 
            
             return View();
-        }
-
-        public ActionResult Logout()
-        {
-            Session.Clear()
-                ;
-            Session.Abandon();
-            return RedirectToAction("Login");
         }
 
         private UserTypes getUserRole(string role)
@@ -146,6 +142,13 @@ namespace EnvatoMarketplace.Controllers
             return View(user);
         }
 
-        
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Login");
+        }
+
     }
 }
