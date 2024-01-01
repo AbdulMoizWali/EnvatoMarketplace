@@ -53,7 +53,7 @@ namespace EnvatoMarketplace.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("CreateCategory", "Home");
+                        return RedirectToAction("Index", "Admin");
                     }
                 }
             }

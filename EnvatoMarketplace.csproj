@@ -97,6 +97,92 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\assets\css\demo.css" />
+    <Content Include="Content\Admin\assets\img\avatars\1.png" />
+    <Content Include="Content\Admin\assets\img\avatars\2.png" />
+    <Content Include="Content\Admin\assets\img\avatars\3.png" />
+    <Content Include="Content\Admin\assets\img\avatars\4.png" />
+    <Content Include="Content\Admin\assets\img\avatars\5.png" />
+    <Content Include="Content\Admin\assets\img\avatars\6.png" />
+    <Content Include="Content\Admin\assets\img\avatars\7.png" />
+    <Content Include="Content\Admin\assets\img\backgrounds\18.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\1.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\11.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\12.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\13.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\17.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\18.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\19.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\2.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\20.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\3.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\4.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\5.jpg" />
+    <Content Include="Content\Admin\assets\img\elements\7.jpg" />
+    <Content Include="Content\Admin\assets\img\favicon\favicon.ico" />
+    <Content Include="Content\Admin\assets\img\icons\brands\asana.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\aws.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\behance.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\dribbble.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\facebook.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\github.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\google.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\instagram.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\mailchimp.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\slack.png" />
+    <Content Include="Content\Admin\assets\img\icons\brands\twitter.png" />
+    <Content Include="Content\Admin\assets\img\icons\misc\aviato.png" />
+    <Content Include="Content\Admin\assets\img\icons\misc\bitbank.png" />
+    <Content Include="Content\Admin\assets\img\icons\misc\triangle-light.png" />
+    <Content Include="Content\Admin\assets\img\icons\misc\zipcar.png" />
+    <Content Include="Content\Admin\assets\img\icons\payments\american-bank.png" />
+    <Content Include="Content\Admin\assets\img\icons\payments\citi.png" />
+    <Content Include="Content\Admin\assets\img\icons\payments\digital-ocean.png" />
+    <Content Include="Content\Admin\assets\img\icons\payments\gumroad.png" />
+    <Content Include="Content\Admin\assets\img\icons\payments\mastercard-2.png" />
+    <Content Include="Content\Admin\assets\img\icons\payments\stripes.png" />
+    <Content Include="Content\Admin\assets\img\illustrations\404.png" />
+    <Content Include="Content\Admin\assets\img\illustrations\auth-basic-mask-light.png" />
+    <Content Include="Content\Admin\assets\img\illustrations\misc-mask-light.png" />
+    <Content Include="Content\Admin\assets\img\illustrations\misc-under-maintenance.png" />
+    <Content Include="Content\Admin\assets\img\illustrations\tree-3.png" />
+    <Content Include="Content\Admin\assets\img\illustrations\tree.png" />
+    <Content Include="Content\Admin\assets\img\illustrations\trophy.png" />
+    <Content Include="Content\Admin\assets\img\layouts\layout-container-light.png" />
+    <Content Include="Content\Admin\assets\img\layouts\layout-fluid-light.png" />
+    <Content Include="Content\Admin\assets\img\layouts\layout-without-menu-light.png" />
+    <Content Include="Content\Admin\assets\img\layouts\layout-without-navbar-light.png" />
+    <Content Include="Content\Admin\assets\js\config.js" />
+    <Content Include="Content\Admin\assets\js\dashboards-analytics.js" />
+    <Content Include="Content\Admin\assets\js\extended-ui-perfect-scrollbar.js" />
+    <Content Include="Content\Admin\assets\js\form-basic-inputs.js" />
+    <Content Include="Content\Admin\assets\js\main.js" />
+    <Content Include="Content\Admin\assets\js\pages-account-settings-account.js" />
+    <Content Include="Content\Admin\assets\js\ui-modals.js" />
+    <Content Include="Content\Admin\assets\js\ui-popover.js" />
+    <Content Include="Content\Admin\assets\js\ui-toasts.js" />
+    <Content Include="Content\Admin\assets\vendor\css\core.css" />
+    <Content Include="Content\Admin\assets\vendor\css\pages\page-account-settings.css" />
+    <Content Include="Content\Admin\assets\vendor\css\pages\page-auth.css" />
+    <Content Include="Content\Admin\assets\vendor\css\pages\page-icons.css" />
+    <Content Include="Content\Admin\assets\vendor\css\pages\page-misc.css" />
+    <Content Include="Content\Admin\assets\vendor\css\theme-default.css" />
+    <Content Include="Content\Admin\assets\vendor\fonts\materialdesignicons.css" />
+    <Content Include="Content\Admin\assets\vendor\js\bootstrap.js" />
+    <Content Include="Content\Admin\assets\vendor\js\helpers.js" />
+    <Content Include="Content\Admin\assets\vendor\js\menu.js" />
+    <Content Include="Content\Admin\assets\vendor\libs\apex-charts\apex-charts.css" />
+    <Content Include="Content\Admin\assets\vendor\libs\apex-charts\apexcharts.js" />
+    <Content Include="Content\Admin\assets\vendor\libs\highlight\highlight-github.css" />
+    <Content Include="Content\Admin\assets\vendor\libs\highlight\highlight.css" />
+    <Content Include="Content\Admin\assets\vendor\libs\highlight\highlight.js" />
+    <Content Include="Content\Admin\assets\vendor\libs\jquery\jquery.js" />
+    <Content Include="Content\Admin\assets\vendor\libs\masonry\masonry.js" />
+    <Content Include="Content\Admin\assets\vendor\libs\node-waves\node-waves.css" />
+    <Content Include="Content\Admin\assets\vendor\libs\node-waves\node-waves.js" />
+    <Content Include="Content\Admin\assets\vendor\libs\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Content\Admin\assets\vendor\libs\perfect-scrollbar\perfect-scrollbar.js" />
+    <Content Include="Content\Admin\assets\vendor\libs\popper\popper.js" />
     <Content Include="Content\Login\assets\css\tailwind.css" />
     <Content Include="Content\Login\assets\css\tailwind.output.css" />
     <Content Include="Content\Login\assets\img\create-account-office-dark.jpeg" />
@@ -132,8 +218,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -190,6 +277,10 @@
     <Content Include="Models\EnvatoDBModel.edmx.diagram">
       <DependentUpon>EnvatoDBModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\Admin\assets\vendor\fonts\materialdesignicons\materialdesignicons-webfont.eot" />
+    <Content Include="Content\Admin\assets\vendor\fonts\materialdesignicons\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\Admin\assets\vendor\fonts\materialdesignicons\materialdesignicons-webfont.woff" />
+    <Content Include="Content\Admin\assets\vendor\fonts\materialdesignicons\materialdesignicons-webfont.woff2" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -201,6 +292,8 @@
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Auth\Signup.cshtml" />
     <Content Include="Views\Auth\_Signup_Layout.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\_Admin_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
