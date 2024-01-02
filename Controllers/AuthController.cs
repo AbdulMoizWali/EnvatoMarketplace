@@ -38,7 +38,7 @@ namespace EnvatoMarketplace.Controllers
             if (log != null)
             {
                 string role = log.Role.name;
-
+                LogUserLogin(log.uid);
                 if (!string.IsNullOrEmpty(role))
                 {
                     if (role == "Customer")
@@ -57,7 +57,7 @@ namespace EnvatoMarketplace.Controllers
                     {
                         Session["uid"] = log.uid;
                         Session["username"] = username;
-                        return RedirectToAction("CreateCategory", "Home");
+                        return RedirectToAction("Index", "Admin");
                     }
                 }
             }
@@ -148,6 +148,20 @@ namespace EnvatoMarketplace.Controllers
             Session.Clear();
             Session.Abandon();
             return RedirectToAction("Login");
+        }
+
+
+        [HttpPost]
+        private void LogUserLogin(int userId)
+        {
+            Log logEntry = new Log();
+
+            logEntry.uid = userId;
+            logEntry.timestamp = DateTime.Now;
+           
+
+            db.Logs.Add(logEntry);
+            db.SaveChanges();
         }
 
     }

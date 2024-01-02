@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EnvatoMarketplace.Models;
+using EnvatoMarketplace.ViewModel;
 
 namespace EnvatoMarketplace.Controllers
 {
@@ -27,6 +28,24 @@ namespace EnvatoMarketplace.Controllers
 
             return View(users);
         }
+
+
+        public ActionResult UserLogs()
+        {
+            List<User> users = db.Users.ToList();
+            List<Log> logs = db.Logs.ToList();
+
+            UserLogsVM viewModel = new UserLogsVM
+            {
+                Users = users,
+                Logs = logs
+            };
+
+            return View(viewModel);
+        }
+
+
+
 
         private void getTotalCustomers()
         {
