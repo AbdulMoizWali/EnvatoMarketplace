@@ -120,7 +120,7 @@
                         }
 
                     </div>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3 ">@(Model.rating ?? 0)</span>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3 ">@(Model.Reviews.Count)</span>
                 </div>
                 <p class="leading-relaxed">@Model.longDesc</p>
                 <div class="flex">
@@ -138,7 +138,7 @@
 @*<form method="post" class="container px-5 pb-24 mx-auto lg:w-4/5 py-20">*@
 @if (Session["username"] != null)
 {
-    if (!Model.Reviews.Any(revie => revie.User.username == Session["username"].ToString()))
+    if (Model.Reviews.Any(revie => revie.User.username != Session["username"].ToString()))
     {
         using (Html.BeginForm("Index", "Product", new { id = Model.pid }, FormMethod.Post, new { @class = "container px-5 pb-24 mx-auto lg:w-4/5 py-20" }))
         {
