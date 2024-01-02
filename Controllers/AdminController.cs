@@ -45,6 +45,54 @@ namespace EnvatoMarketplace.Controllers
         }
 
 
+        public ActionResult AddCategories()
+        {
+            var categories = db.Categories.ToList();
+
+            var parentCategories = categories.Where(c => c.pcatid == null).ToList();
+
+            var parentCategoriesSelectList = new SelectList(parentCategories, "catid", "catName");
+
+            var viewModel = new CategoryViewModel
+            {
+                Categories = categories,
+                ParentCategories = parentCategoriesSelectList,
+                NewCategory = new Category() // This will be used to bind the form data
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddCategories(CategoryViewModel viewModel)
+        {
+            if (!string.IsNullOrEmpty(viewModel.NewCategory.catName))
+            {
+                if (ModelState.IsValid)
+                {
+                    if (viewModel.NewCategory.pcatid == 0)
+                    {
+                        viewModel.NewCategory.pcatid = null;
+                    }
+
+                    db.Categories.Add(viewModel.NewCategory);
+                    db.SaveChanges();
+
+                    return RedirectToAction("AddCategories");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Please enter a category name.");
+            }
+
+            viewModel.Categories = db.Categories.ToList();
+            viewModel.ParentCategories = new SelectList(viewModel.Categories.Where(c => c.pcatid != null), "catid", "catName");
+
+            return View(viewModel);
+        }
+
+
 
 
         private void getTotalCustomers()
