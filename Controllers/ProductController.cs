@@ -30,7 +30,7 @@ namespace EnvatoMarketplace.Controllers
         {
             try
             {
-                Product product = db.Products.First(prod => prod.pid == id);
+                Product product = db.Products.FirstOrDefault(prod => prod.pid == id);
 
                 int uid = int.Parse(Session["uid"].ToString());
                 int pid = (int)id;
