@@ -18,6 +18,12 @@ namespace EnvatoMarketplace.Controllers
         DELIVERED
     }
 
+    enum PaymentType
+    {
+        Cash = 1,
+        Card = 2,
+    }
+
     public class CartController : Controller
     {
         EnvatoDBEntities db = new EnvatoDBEntities();
@@ -252,6 +258,44 @@ namespace EnvatoMarketplace.Controllers
             newCartOpen.createdAt = DateTime.Now;
             newCartOpen.cartStatus = CartStatus.CREATED.ToString();
             return newCartOpen;
+        }
+
+        private PaymentType getPaymentType(string paymentType)
+        {
+            if (paymentType == "Cash")
+            {
+                return PaymentType.Cash;
+            }
+            else
+            {
+                return PaymentType.Card;
+            }
+        }
+
+        public ActionResult Checkout(int? id, string PaymentType)
+        {
+            PaymentType paymentType = getPaymentType(PaymentType);
+            var cart = db.Carts.Where(crt => crt.cid == id).FirstOrDefault();
+            cart.cartStatus = CartStatus.DELIVERED.ToString();
+            cart.closedAt = DateTime.Now;
+            cart.payid= (int)paymentType;
+
+            db.Carts.AddOrUpdate(cart);
+
+            Cart newCart = CreateNewCart(cart.uid);
+            db.Carts.Add(newCart);
+            if(db.SaveChanges() > 0)
+            {
+                return RedirectToAction("OrderPlaced");
+            }
+
+            
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult OrderPlaced()
+        {
+            return View();
         }
     }
 }
