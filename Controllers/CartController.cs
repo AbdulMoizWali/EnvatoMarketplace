@@ -30,8 +30,8 @@ namespace EnvatoMarketplace.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            Session["username"] = "o";
-            Session["uid"] = "55";
+            /*Session["username"] = "o";
+            Session["uid"] = "55";*/
             if (Session["username"] == null)
             {
                 return RedirectToAction("Login", "Auth");
