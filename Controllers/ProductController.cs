@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +30,7 @@ namespace EnvatoMarketplace.Controllers
         {
             try
             {
-                Product product = db.Products.First(prod => prod.pid == id);
+                Product product = db.Products.FirstOrDefault(prod => prod.pid == id);
 
                 int uid = int.Parse(Session["uid"].ToString());
                 int pid = (int)id;
@@ -43,21 +44,29 @@ namespace EnvatoMarketplace.Controllers
                 reviewObj.rating = reviewRating;
 
 
-                if(product.Reviews.Count() > 0)
+                if(product.Reviews.Count > 0)
                 {
-                    double rating = 0;
+                    int ratingSum = 0;
                     foreach (var reviews in product.Reviews)
                     {
-                        rating += (reviews.rating / (product.Reviews.Count() + 1));
+                        ratingSum += reviews.rating;
+                        /*rating += (double)((double)reviews.rating / (product.Reviews.Count + 1));
+                        ModelState.AddModelError("", rating.ToString());
+                        Debug.WriteLine(rating.ToString() + " " + reviews.rating + " / " + (product.Reviews.Count + 1));  */ 
                     }
+                    ratingSum += reviewRating;
 
-                    rating += (reviewRating / (product.Reviews.Count() + 1));
+                    double rating = 0.0;
+                    rating = (ratingSum / (product.Reviews.Count + 1));
+                    Debug.WriteLine(rating.ToString() + " " + ratingSum + " / " + (product.Reviews.Count + 1));
                     product.rating = rating;
                 }
                 else
                 {
                     product.rating = reviewRating;
                 }
+
+                ModelState.AddModelError("", product.Reviews.Count.ToString());
 
                 db.Products.AddOrUpdate(product);
                 db.Reviews.Add(reviewObj);

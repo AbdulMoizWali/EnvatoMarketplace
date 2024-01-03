@@ -6,6 +6,8 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Data.Common;
 using System.Web.WebPages;
+using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace EnvatoMarketplace.Controllers
 {
@@ -123,6 +125,11 @@ namespace EnvatoMarketplace.Controllers
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
+                    if (user.rid == (int)UserTypes.Customer)
+                    {
+                        db.Carts.Add(CartController.CreateNewCart(user.uid));
+                        db.SaveChanges();
+                    }
                     return RedirectToAction("Login");
                 }
 
