@@ -35,6 +35,8 @@ namespace EnvatoMarketplace.Controllers
             List<User> users = db.Users.ToList();
             List<Log> logs = db.Logs.ToList();
 
+
+
             UserLogsVM viewModel = new UserLogsVM
             {
                 Users = users,

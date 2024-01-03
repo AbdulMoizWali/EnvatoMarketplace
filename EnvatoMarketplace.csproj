@@ -224,6 +224,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -273,6 +274,7 @@
     <Compile Include="ViewModel\CategoryVM - Copy.cs" />
     <Compile Include="ViewModel\UserLogsVM.cs" />
     <Compile Include="ViewModel\MarketplaceVM.cs" />
+    <Compile Include="ViewModel\VendorProductVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -303,6 +305,7 @@
     <Content Include="Views\Admin\_Admin_Layout.cshtml" />
     <Content Include="Views\Admin\UserLogs.cshtml" />
     <Content Include="Views\Admin\AddCategories.cshtml" />
+    <Content Include="Views\Vendor\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -51,9 +51,9 @@ namespace EnvatoMarketplace.Controllers
                     {
                         Session["uid"] = log.uid;
                         Session["username"] = username;
-                        return RedirectToAction("CreateUser", "Home");
+                        return RedirectToAction("Index", "Vendor");
                     }
-                    else
+                    else 
                     {
                         Session["uid"] = log.uid;
                         Session["username"] = username;
