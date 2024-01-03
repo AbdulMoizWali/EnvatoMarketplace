@@ -78,5 +78,54 @@ namespace EnvatoMarketplace.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult AddProduct()
+        {
+            var categories = db.Categories.ToList();
+            SelectList categoryList = new SelectList(categories, "catid", "catName");
+
+            var viewModel = new ProductVM
+            {
+                NewProduct = new Product(),
+                Categories = categoryList
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(ProductVM viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                viewModel.NewProduct.uid = Convert.ToInt32(Session["uid"]);
+                viewModel.NewProduct.productPic = "~/uploads/productImages/galaxys21.jpeg";
+
+                if (viewModel.NullifyQuantity)
+                {
+                    viewModel.NewProduct.availableQty = null;
+                }
+                try
+                {
+                    db.Products.Add(viewModel.NewProduct);
+                    db.SaveChanges();
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException dbUpdateException)
+                {
+                    ModelState.AddModelError("", "Product name already taken ");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Unable to Add Product  " + ex?.InnerException?.InnerException?.GetType()?.ToString() + " " + ex.Message);
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            var categories = db.Categories.ToList(); 
+            viewModel.Categories = new SelectList(categories, "catid", "catName");
+
+            return View(viewModel);
+        }
+
     }
 }
