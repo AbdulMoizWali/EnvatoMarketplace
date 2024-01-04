@@ -1,0 +1,90 @@
+﻿@model EnvatoMarketplace.Models.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Home/_Landing_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "User", FormMethod.Post, new { enctype = "multipart/form-data", @class = "flex flex-col justify-center align-center" }))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="bg-white rounded-2xl text-gray-900 flex flex-col w-2/4 items-stretch self-center">
+    <h4>User</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-red-700" })
+    @Html.HiddenFor(model => model.uid)
+
+    <div class="mb-6">
+        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full name</span>
+        @*@Html.LabelFor(model => model.name, htmlAttributes: new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })*@
+        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" } })
+        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-red-700" })
+    </div>
+
+
+    <div class="mb-6">
+        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</span>
+        @*@Html.LabelFor(model => model.password, htmlAttributes: new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })*@
+        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input", placeholder = "********", type = "password" } })
+        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-red-700" })
+    </div>
+
+
+    <div class="mb-6">
+        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shipping Address</span>
+        @*@Html.LabelFor(model => model.shippingAddress, htmlAttributes: new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })*@
+        @Html.EditorFor(model => model.shippingAddress, new { htmlAttributes = new { @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" } })
+        @Html.ValidationMessageFor(model => model.shippingAddress, "", new { @class = "text-red-700" })
+    </div>
+
+
+    <div class="mb-6">
+        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</span>
+        @*@Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })*@
+        @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" } })
+        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-red-700" })
+    </div>
+
+
+    <div class="mb-6">
+        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Pic</span>
+        @*@Html.LabelFor(model => model.profilePic, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        <div class="col-md-10">
+            <input type="file" name="ProfilePic" id="ProfilePic" required />
+            @Html.ValidationMessageFor(model => model.profilePic, "", new { @class = "text-red-700" })
+        </div>
+    </div>
+
+
+
+    @*<div class="relative max-w-sm">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+            </svg>
+        </div>
+        <input datepicker type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+    </div>*@
+
+<div class="mb-6 w-full">
+    @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-red-700" })
+    <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Birth</span>
+    @*@Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })*@
+    @*@Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control", type = "date" } })*@
+
+    <div class="relative w-full">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+            </svg>
+        </div>
+        <input datepicker type="text" name="dob" class="w-[100%] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+    </div>
+</div>
+
+
+
+    <input type="submit" value="Update Profile" class="cursor-pointer block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" />
+</div>
+}

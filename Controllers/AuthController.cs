@@ -47,18 +47,24 @@ namespace EnvatoMarketplace.Controllers
                     {
                         Session["uid"] = log.uid;
                         Session["username"] = username;
+                        Session["profilePic"] = log.profilePic;
+                        Session["name"] = log.name;
                         return RedirectToAction("Index", "Home");
                     }
                     else if (role == "Vendor")
                     {
                         Session["uid"] = log.uid;
                         Session["username"] = username;
+                        Session["profilePic"] = log.profilePic;
+                        Session["name"] = log.name;
                         return RedirectToAction("Index", "Vendor");
                     }
                     else 
                     {
                         Session["uid"] = log.uid;
                         Session["username"] = username;
+                        Session["profilePic"] = log.profilePic;
+                        Session["name"] = log.name;
                         return RedirectToAction("Index", "Admin");
                     }
                 }

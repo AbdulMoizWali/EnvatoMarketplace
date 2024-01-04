@@ -1,0 +1,59 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        //Task for building your ASP.NET Solution
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                // Ask msbuild to generate full paths for file names.
+                "/property:GenerateFullPaths=true",
+                "/t:build"
+            ],
+            "windows": {
+                "command": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\15.0\\Bin\\msbuild.exe"
+            },
+            "group": "build",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "always"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        //Task for running App in IIS Express
+        //You can add additional projects here if you want to run more than one project in IIS Express
+        //For example this shows how I'm running my WebApp and API locally in IIS Expresse
+        {
+            "label": "iisexpress-WebApp",
+            "type": "shell",
+            "windows": {
+                "command": "C:\\Program Files (x86)\\IIS Express\\iisexpress.exe"
+            },
+            "args":[
+                "/path:${workspaceRoot}\\Web",
+                "/port:52945"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "iisexpress-API",
+            "type": "shell",
+            "windows": {
+                "command": "C:\\Program Files (x86)\\IIS Express\\iisexpress.exe"
+            },
+            "args":[
+                "/path:${workspaceRoot}\\Api",
+                "/port:49243"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        }
+    ]
+}
