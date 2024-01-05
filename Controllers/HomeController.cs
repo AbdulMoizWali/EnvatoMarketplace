@@ -46,7 +46,17 @@ namespace EnvatoMarketplace.Controllers
                 marketplaceVM.Products = db.Products;
             }
             marketplaceVM.Categories = db.Categories;
-            return View(marketplaceVM);
+
+            try
+            {
+                marketplaceVM.Categories.Count();
+                marketplaceVM.Products.Count();
+                return View(marketplaceVM);
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("InternalServerError", "Default");
+            }
         }
     }
 }

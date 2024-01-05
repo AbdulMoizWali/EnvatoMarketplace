@@ -313,6 +313,7 @@
     <Content Include="Views\Cart\NoProductInCart.cshtml" />
     <Content Include="Views\Cart\OrderPlaced.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Default\InternalServerError.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

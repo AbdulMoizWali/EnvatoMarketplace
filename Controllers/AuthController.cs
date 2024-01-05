@@ -35,43 +35,54 @@ namespace EnvatoMarketplace.Controllers
         }
         public ActionResult Login(string username, string password)
         {
-            var log = db.Users.Where(x => x.username == username && x.password == password).FirstOrDefault();
 
-            if (log != null)
+            try
             {
-                string role = log.Role.name;
-                LogUserLogin(log.uid);
-                if (!string.IsNullOrEmpty(role))
+                var log = db.Users.Where(x => x.username == username && x.password == password).FirstOrDefault();
+
+                if (log != null)
                 {
-                    if (role == "Customer")
+                    string role = log.Role.name;
+                    LogUserLogin(log.uid);
+                    if (!string.IsNullOrEmpty(role))
                     {
-                        Session["uid"] = log.uid;
-                        Session["username"] = username;
-                        Session["profilePic"] = log.profilePic;
-                        Session["name"] = log.name;
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else if (role == "Vendor")
-                    {
-                        Session["uid"] = log.uid;
-                        Session["username"] = username;
-                        Session["profilePic"] = log.profilePic;
-                        Session["name"] = log.name;
-                        return RedirectToAction("Index", "Vendor");
-                    }
-                    else 
-                    {
-                        Session["uid"] = log.uid;
-                        Session["username"] = username;
-                        Session["profilePic"] = log.profilePic;
-                        Session["name"] = log.name;
-                        return RedirectToAction("Index", "Admin");
+                        if (role == "Customer")
+                        {
+                            Session["uid"] = log.uid;
+                            Session["username"] = username;
+                            Session["profilePic"] = log.profilePic;
+                            Session["name"] = log.name;
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else if (role == "Vendor")
+                        {
+                            Session["uid"] = log.uid;
+                            Session["username"] = username;
+                            Session["profilePic"] = log.profilePic;
+                            Session["name"] = log.name;
+                            return RedirectToAction("Index", "Vendor");
+                        }
+                        else
+                        {
+                            Session["uid"] = log.uid;
+                            Session["username"] = username;
+                            Session["profilePic"] = log.profilePic;
+                            Session["name"] = log.name;
+                            return RedirectToAction("Index", "Admin");
+                        }
                     }
                 }
+
+
+                return View();
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("InternalServerError", "Default");
             }
 
-           
-            return View();
+            
         }
 
         private UserTypes getUserRole(string role)

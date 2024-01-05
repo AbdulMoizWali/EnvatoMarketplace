@@ -13,5 +13,10 @@ namespace EnvatoMarketplace.Controllers
         {
             return View();
         }
+
+        public ActionResult InternalServerError()
+        {
+            return View();
+        }
     }
 }
