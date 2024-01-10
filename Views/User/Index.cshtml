@@ -51,7 +51,7 @@
         <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Pic</span>
         @*@Html.LabelFor(model => model.profilePic, htmlAttributes: new { @class = "control-label col-md-2" })*@
         <div class="col-md-10">
-            <input type="file" name="ProfilePic" id="ProfilePic" required />
+            <input type="file" name="profilePic" id="profilePic" required />
             @Html.ValidationMessageFor(model => model.profilePic, "", new { @class = "text-red-700" })
         </div>
     </div>

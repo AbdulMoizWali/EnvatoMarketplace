@@ -32,22 +32,24 @@ namespace EnvatoMarketplace.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(User user, HttpPostedFileBase ProfilePic) {
+        public ActionResult Index(User user, HttpPostedFileBase profilePic) {
             if (ModelState.IsValid)
             {
-                var fileName = Path.GetFileName(ProfilePic.FileName);
-                var path = Path.Combine(Server.MapPath("~/upload/userImages"), fileName);
+                var fileName = Path.GetFileName(profilePic.FileName);
+                var path = Path.Combine(Server.MapPath("~/upload/userImages/"), fileName);
 
                 var prevUser = db.Users.Where(usr => usr.uid == user.uid).FirstOrDefault();
 
                 user.doj = prevUser.doj;
                 user.username = prevUser.username;
-
+                user.rid = prevUser.rid;
                 user.profilePic = "~/upload/userImages/" + fileName;
 
                 db.Users.AddOrUpdate(user);
 
-                Debug.WriteLine(ProfilePic.FileName);
+                Debug.WriteLine(path);
+                Debug.WriteLine(fileName);
+                Debug.WriteLine(profilePic.FileName);
                 Debug.WriteLine(user.uid);
                 Debug.WriteLine(user.name);
                 Debug.WriteLine(user.username);
@@ -60,7 +62,7 @@ namespace EnvatoMarketplace.Controllers
 
                 if (db.SaveChanges() > 0)
                 {
-                    ProfilePic.SaveAs(path);
+                    profilePic.SaveAs(path);
                 }
 
                 return RedirectToAction("Index");
