@@ -398,23 +398,31 @@
                                                         else if (user.rid == 3)
                                                         {
                                                             <i class="mdi mdi-chart-donut mdi-24px text-success me-1">Customer</i>
-                                                                                                }
+                                                        }
                                                         <!-- Add more roles as needed -->
                                                     </td>
                                                     <td class="text-truncate">
-                                                      @user.doj
+                                                        @user.doj
                                                     </td>
                                                     <td class="text-truncate">@user.phone</td>
                                                     <td>
-                                                        @if (user.accountStatus.ToString() == "TRUE")
+                                                        @if (user != null && user.accountStatus != null)
                                                         {
-                                                            <span class="badge bg-label-success rounded-pill">Active</span>
+                                                            if (user.accountStatus.ToString() == "TRUE")
+                                                            {
+                                                                <span class="badge bg-label-success rounded-pill">Active</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="badge bg-label-secondary rounded-pill">Inactive</span>
+                                                            }
                                                         }
                                                         else
                                                         {
-                                                            <span class="badge bg-label-secondary rounded-pill">Inactive</span>
+                                                            <span class="badge bg-label-secondary rounded-pill">null</span>
                                                         }
                                                     </td>
+
                                                 </tr>
                                             }
                                         </tbody>

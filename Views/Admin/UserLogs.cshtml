@@ -298,15 +298,23 @@
 
 
                                             <td>
-                                                @if (user.accountStatus.ToString() == "TRUE")
+                                                @if (user != null && user.accountStatus != null)
                                                 {
-                                                    <span class="badge bg-label-success rounded-pill">Active</span>
+                                                    if (user.accountStatus.ToString() == "TRUE")
+                                                    {
+                                                        <span class="badge bg-label-success rounded-pill">Active</span>
+                                                    }
+                                                    else if(user.accountStatus.ToString() == "FALSE")
+                                                    {
+                                                        <span class="badge bg-label-secondary rounded-pill">Inactive</span>
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    <span class="badge bg-label-secondary rounded-pill">Inactive</span>
+                                                    <span class="badge bg-label-secondary rounded-pill">null</span>
                                                 }
                                             </td>
+
                                         </tr>
                                     }
 

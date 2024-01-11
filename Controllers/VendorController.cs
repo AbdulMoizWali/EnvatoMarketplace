@@ -2,6 +2,7 @@
 using EnvatoMarketplace.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -71,12 +72,35 @@ namespace EnvatoMarketplace.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            DeleteReviewsForProduct(productToDelete.pid);
+            DeleteCartItemsForProduct(productToDelete.pid);
             db.Products.Remove(productToDelete);
             db.SaveChanges();
 
             return RedirectToAction("Index");
         }
+        private void DeleteReviewsForProduct(int productId)
+        {
+            var reviewsToDelete = db.Reviews.Where(r => r.pid == productId).ToList();
+
+            if (reviewsToDelete.Count > 0)
+            {
+                db.Reviews.RemoveRange(reviewsToDelete);
+                db.SaveChanges();
+            }
+        }
+
+        private void DeleteCartItemsForProduct(int productId)
+        {
+            var cartItemsToDelete = db.CartItems.Where(ci => ci.pid == productId).ToList();
+
+            if (cartItemsToDelete.Count > 0)
+            {
+                db.CartItems.RemoveRange(cartItemsToDelete);
+                db.SaveChanges();
+            }
+        }
+
 
         public ActionResult AddProduct()
         {
@@ -93,32 +117,47 @@ namespace EnvatoMarketplace.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddProduct(ProductVM viewModel)
+        public ActionResult AddProduct(ProductVM viewModel, HttpPostedFileBase imgFile) 
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && imgFile != null && imgFile.ContentLength > 0)
             {
-                viewModel.NewProduct.uid = Convert.ToInt32(Session["uid"]);
-                viewModel.NewProduct.productPic = "~/uploads/productImages/galaxys21.jpeg";
+               
 
-                if (viewModel.NullifyQuantity)
-                {
-                    viewModel.NewProduct.availableQty = null;
-                }
-                try
-                {
-                    db.Products.Add(viewModel.NewProduct);
-                    db.SaveChanges();
-                }
-                catch (System.Data.Entity.Infrastructure.DbUpdateException dbUpdateException)
-                {
-                    ModelState.AddModelError("", "Product name already taken ");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Unable to Add Product  " + ex?.InnerException?.InnerException?.GetType()?.ToString() + " " + ex.Message);
-                }
+                    string fileName = Path.GetFileName(imgFile.FileName);
+                    String _fileName = fileName;
+                    String extension = Path.GetExtension(imgFile.FileName);
+                    string path = Path.Combine(Server.MapPath("~/uploads/productImages/"), fileName);
+                    viewModel.NewProduct.productPic = "~/uploads/productImages/" + _fileName;
 
+                    viewModel.NewProduct.uid = Convert.ToInt32(Session["uid"]);
+                   
+
+                    if (viewModel.NullifyQuantity)
+                    {
+                        viewModel.NewProduct.availableQty = null;
+                    }
+                    try
+                    {
+                        db.Products.Add(viewModel.NewProduct);
+                    imgFile.SaveAs(path);
+                        db.SaveChanges();
+                    }
+                    catch (System.Data.Entity.Infrastructure.DbUpdateException dbUpdateException)
+                    {
+                        ModelState.AddModelError("", "Product name already taken ");
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "Unable to Add Product  " + ex?.InnerException?.InnerException?.GetType()?.ToString() + " " + ex.Message);
+                    }
+
+                   
+                
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("InternalServerError", "Default");
             }
 
             var categories = db.Categories.ToList(); 
