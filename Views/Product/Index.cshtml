@@ -1,0 +1,316 @@
+﻿@model EnvatoMarketplace.Models.Product
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Home/_Landing_Layout.cshtml";
+}
+
+@*<h2>Index</h2>
+
+    <div>
+        <h4>Product</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.productPic)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.productPic)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.shortDesc)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.shortDesc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.longDesc)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.longDesc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.rating)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.rating)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.availableQty)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.availableQty)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Category.catName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category.catName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.name)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.pid }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+*@
+
+<section class="text-gray-600 body-font overflow-hidden">
+    <div class="container px-5 pt-24 mx-auto">
+        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+            <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-3xl" src="@Url.Content(Model.productPic)">
+            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                <h3 class="text-md title-font text-gray-400 tracking-widest mb-5">@Model.Category.catName</h3>
+                <div class="p-1 border-[1px] border-purple-700 rounded-3xl flex flex-row gap-4 items-center w-fit pr-3 mb-3 bg-purple-50">
+                    <img class="w-10 h-10 p-1 rounded-full ring-2 ring-purple-300 dark:ring-gray-500" src="@Url.Content(Model.User.profilePic)" alt="Bordered avatar">
+                    <h2 class="text-md font-bold title-font text-gray-500 tracking-widest">@Model.User.username</h2>
+                </div>
+                <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">@Model.name</h1>
+                <h1 class="text-gray-600 text-xl title-font font-light mb-1">@Model.shortDesc</h1>
+                <div class="flex items-center mt-2.5 mb-5">
+                    <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                        @for (int i = 0; i < ((int?)Model.rating ?? 0); i++)
+                        {
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                        }
+
+                        @for (int j = 0; j < 5 - ((int?)Model.rating ?? 0); j++)
+                        {
+                            <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                        }
+
+                    </div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3 ">@(Model.Reviews.Count)</span>
+                </div>
+                <p class="leading-relaxed">@Model.longDesc</p>
+                <div class="flex">
+                    <span class="title-font font-medium text-2xl text-gray-900 py-3">$@((int)Model.amount)</span>
+                </div>
+                @using (Html.BeginForm("AddToCart", "Cart", new { id = Model.pid }, FormMethod.Post))
+                {
+                    if (Model.availableQty != null)
+                    {
+                        <label for="quantity-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
+                        <div class="relative flex items-center max-w-[8rem] mb-3">
+                            <button type="button" id="decrement-button" data-input-counter-decrement="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
+                                </svg>
+                            </button>
+                            <input type="text" name="BuyQty" id="quantity-input" data-input-counter data-input-counter-min="1" data-input-counter-max="50" aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" value="1" max="@Model.availableQty" required>
+                            <button type="button" id="increment-button" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <input type="hidden" name="BuyQty" value="1" />
+                    }
+
+                    @*<a href="@Html.Action("AddToCart", "Cart", new { id = Model.pid })" class="flex text-white bg-purple-700 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-3xl">Add To Cart</a>*@
+                    @*@Html.ActionLink("Add To Cart", "AddToCart", "Cart", new { id = Model.pid, buyQty = ViewBag.BuyQty }, new { @class = "flex text-white w-fit bg-purple-700 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-3xl" })*@
+                    if ((Model.availableQty ?? 1) > 0)
+                    {
+                        <input type="submit" value="Add To Cart" class="flex text-white w-fit bg-purple-700 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded-3xl" />
+                    }
+                    else
+                    {
+                        <p class="text-red-700 font-bold">Out Of Stock</p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*<form method="post" class="container px-5 pb-24 mx-auto lg:w-4/5 py-20">*@
+@if (Session["username"] != null)
+{
+    if (!Model.Reviews.Any(revie => revie.User.username == Session["username"].ToString()))
+    {
+        using (Html.BeginForm("Index", "Product", new { id = Model.pid }, FormMethod.Post, new { @class = "container px-5 pb-24 mx-auto lg:w-4/5 py-20" }))
+        {
+            <h2 class="text-gray-900 text-3xl title-font font-medium ">Write a review</h2>
+            <hr class="mb-5" />
+            <div class="flex flex-col place-items-center items-stretch mx-auto w-full sm:w-[40rem]">
+                @*<div class="grid w-full place-items-center">*@
+                <div class="grid h-[15rem] grid-rows-5 sm:h-fit sm:w-[40rem] sm:grid-rows-1 sm:grid-cols-5 gap-1 rounded-3xl sm:rounded-full bg-purple-700 p-2">
+                    <div class="flex items-center justify-center">
+                        <input type="radio" name="ReviewRating" id="5" value="5" class="peer hidden" checked />
+                        <label for="5" class="sm:w-full flex flex-row items-center justify-center block cursor-pointer select-none rounded-full p-1 text-center peer-checked:bg-purple-500 peer-checked:font-bold peer-checked:text-white">
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-center">
+                        <input type="radio" name="ReviewRating" id="4" value="4" class="peer hidden" />
+                        <label for="4" class="block cursor-pointer select-none rounded-full p-1 text-center peer-checked:bg-purple-500 peer-checked:font-bold peer-checked:text-white">
+                            <div class="flex flex-row items-center justify-center">
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-center">
+                        <input type="radio" name="ReviewRating" id="3" value="3" class="peer hidden" />
+                        <label for="3" class="block cursor-pointer select-none rounded-full p-1 text-center peer-checked:bg-purple-500 peer-checked:font-bold peer-checked:text-white">
+                            <div class="flex flex-row items-center justify-center">
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-center">
+                        <input type="radio" name="ReviewRating" id="2" value="2" class="peer hidden" />
+                        <label for="2" class="block cursor-pointer select-none rounded-full p-1 text-center peer-checked:bg-purple-500 peer-checked:font-bold peer-checked:text-white">
+                            <div class="flex flex-row items-center justify-center">
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-center">
+                        <input type="radio" name="ReviewRating" id="1" value="1" class="peer hidden" />
+                        <label for="1" class="block cursor-pointer select-none rounded-full p-1 text-center peer-checked:bg-purple-500 peer-checked:font-bold peer-checked:text-white">
+                            <div class="flex flex-row items-center justify-center">
+                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                @*</div>*@
+                @*<label class="block mt-4 text-sm w-[40rem]">
+                        <span class="text-gray-700 dark:text-gray-400">Comment</span>
+                    </label>*@
+                <textarea rows="5" type="text" multiple name="Comment" id="Comment" class="rounded-2xl block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Your nice review..."></textarea>
+                <input type="submit" value="Add Review" class="cursor-pointer block px-4 py-2 mt-1 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-full active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" />
+            </div>
+        }
+    }
+
+}
+@*</form>*@
+
+
+
+<section class="container px-5 py-24 mx-auto lg:w-4/5">
+    <h2 class="text-gray-900 text-3xl title-font font-medium mb-5">Reviews</h2>
+    <hr class="mb-5" />
+    @foreach (var review in Model.Reviews)
+    {
+        <article class="mb-9">
+            <div class="flex items-center mb-4">
+                <img class="w-10 h-10 me-4 rounded-full" src="@Url.Content(review.User.profilePic)" alt="@review.User.name">
+                <div class="font-medium dark:text-white">
+                    <p>@review.User.name <time datetime="@review.User.doj" class="block text-sm text-gray-500 dark:text-gray-400">Joined on @(review.User.doj?.ToString("MMM yyyy"))</time></p>
+                </div>
+            </div>
+            <div class="flex items-center mt-2.5 mb-5">
+                <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                    @for (int i = 0; i < ((int?)review.rating ?? 0); i++)
+                    {
+                        <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                    }
+
+                    @for (int j = 0; j < 5 - ((int?)review.rating ?? 0); j++)
+                    {
+                        <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                    }
+
+                </div>
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3 ">@(review.rating)</span>
+            </div>
+            <p class="mb-3 text-gray-500 dark:text-gray-400">@review.comment</p>
+        </article>
+    }
+</section>
