@@ -32,41 +32,68 @@ namespace EnvatoMarketplace.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(User user, HttpPostedFileBase profilePic) {
+        public ActionResult Index(User user, HttpPostedFileBase profilePic, string dob) {
+            var prevUser = db.Users.Where(usr => usr.uid == user.uid).FirstOrDefault();
+
+            var fileName = "";
+
+            if (profilePic != null)
+            {
+                fileName = Path.GetFileName(profilePic.FileName);
+            }
+            else
+            {
+                fileName = prevUser.profilePic.Split('/')[prevUser.profilePic.Split('/').Count() - 1];
+            }
+            
+            var path = Path.Combine(Server.MapPath("~/uploads/userImages/"), fileName);
+
+            if(user.accountStatus == null)
+            {
+                user.accountStatus = UserAccountStatus.TRUE.ToString();
+            }
+            user.doj = prevUser.doj;
+            user.username = prevUser.username;
+            user.rid = prevUser.rid;
+            user.profilePic = "~/uploads/userImages/" + fileName;
+            if(dob != "")
+            {
+                user.dob = DateTime.Parse(dob);
+            }
+            else
+            {
+                user.dob = prevUser.dob;
+            }
+
+            db.Users.AddOrUpdate(user);
+
+            Debug.WriteLine(path);
+            Debug.WriteLine(fileName);
+            Debug.WriteLine(profilePic?.FileName);
+            Debug.WriteLine(user.uid);
+            Debug.WriteLine(user.name);
+            Debug.WriteLine(user.username);
+            Debug.WriteLine(user.password);
+            Debug.WriteLine(user.profilePic);
+            Debug.WriteLine(user.dob);
+            Debug.WriteLine(user.doj);
+            Debug.WriteLine(user.shippingAddress);
+            Debug.WriteLine(user.phone);
+
+            int changedlines = db.SaveChanges();
+            Debug.WriteLine(changedlines);
+
+            if (profilePic != null)
+            {
+                profilePic.SaveAs(path);
+
+            }
+
             if (ModelState.IsValid)
             {
-                var fileName = Path.GetFileName(profilePic.FileName);
-                var path = Path.Combine(Server.MapPath("~/upload/userImages/"), fileName);
-
-                var prevUser = db.Users.Where(usr => usr.uid == user.uid).FirstOrDefault();
-
-                user.doj = prevUser.doj;
-                user.username = prevUser.username;
-                user.rid = prevUser.rid;
-                user.profilePic = "~/upload/userImages/" + fileName;
-
-                db.Users.AddOrUpdate(user);
-
-                Debug.WriteLine(path);
-                Debug.WriteLine(fileName);
-                Debug.WriteLine(profilePic.FileName);
-                Debug.WriteLine(user.uid);
-                Debug.WriteLine(user.name);
-                Debug.WriteLine(user.username);
-                Debug.WriteLine(user.password);
-                Debug.WriteLine(user.profilePic);
-                Debug.WriteLine(user.dob);
-                Debug.WriteLine(user.doj);
-                Debug.WriteLine(user.shippingAddress);
-                Debug.WriteLine(user.phone);
-
-                if (db.SaveChanges() > 0)
-                {
-                    profilePic.SaveAs(path);
-                }
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
+   
             return View(user);
         }
     }
