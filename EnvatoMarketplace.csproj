@@ -314,6 +314,7 @@
     <Content Include="Views\Cart\OrderPlaced.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Default\InternalServerError.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

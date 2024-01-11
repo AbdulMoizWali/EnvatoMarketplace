@@ -58,5 +58,10 @@ namespace EnvatoMarketplace.Controllers
                 return RedirectToAction("InternalServerError", "Default");
             }
         }
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
     }
 }
